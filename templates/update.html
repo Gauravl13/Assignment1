@@ -1,0 +1,154 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+  </head>
+  <body style="background-color:khaki">
+  <div class="content">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6 contents">
+          <div class="row justify-content-center">
+            <div class="col-md-12">
+              <div class="form-block">
+                  <div class="mb-4">
+                    <div style="text-align:center">
+                    <h1>Update Task</h1>
+                    </div>
+                            <form class="register-class" action="" method="POST" validate>
+
+                                {% csrf_token %}
+                                {{form.as_p}}
+                                <input type="submit"value="Submit">
+                            </form>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Update Student</title>-->
+<!--        <style>-->
+<!--    form {-->
+<!--  max-width: 500px;-->
+<!--  margin: 0 auto;-->
+<!--  padding: 20px;-->
+<!--  background-color: #fff;-->
+<!--  border-radius: 5px;-->
+<!--  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);-->
+<!--}-->
+
+<!--input,-->
+<!--textarea {-->
+<!--  display: block;-->
+<!--  width: 100%;-->
+<!--  padding: 10px;-->
+<!--  margin-bottom: 10px;-->
+<!--  border: 1px solid #ccc;-->
+<!--  border-radius: 3px;-->
+<!--  font-size: 16px;-->
+<!--}-->
+
+<!--button {-->
+<!--  display: block;-->
+<!--  margin-top: 10px;-->
+<!--  padding: 10px;-->
+<!--  background-color: #4CAF50;-->
+<!--  color: #fff;-->
+<!--  border: none;-->
+<!--  border-radius: 3px;-->
+<!--  font-size: 16px;-->
+<!--  cursor: pointer;-->
+<!--}-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<form action="" method="POST" validate>-->
+<!--     <div style="text-align:center">-->
+<!--    {% csrf_token %}-->
+<!--    {{form.as_p}}-->
+<!--    <input type="submit"value="Submit">-->
+<!--    <div style="text-align:center">-->
+<!--         <div class="row valign">-->
+
+
+<!--</body>-->
+<!--</html>-->

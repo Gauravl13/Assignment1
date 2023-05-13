@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+{% include 'message.html' %}
+<html lang="en">
+<head>
+        <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../static/css/style1.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+    <meta charset="UTF-8">
+        <title>Display Data</title>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.Tagline{
+background-color:red;
+color:white;
+text-align:center;
+margin-top:100px}
+
+.pagination{
+style='text-align:right'
+</style>
+
+<body style="background-color:khaki">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Hello {{request.user}}</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/register">User Registration <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/home1">Employee List</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/add">Create Task</a>
+      </li>
+         <li class="nav-item">
+        <a class="nav-link" href="/search">Search</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Logout</a>
+      </li>
+    </ul>
+
+
+    <form action="home" class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="{% url 'search' %}"></a>Search</button>
+    </form>
+  </div>
+</nav>
+<br/>
+<br/>
+<div style="text-align:center">
+    <h1>Employee Task Details</h1>
+
+</div>
+<br/>
+
+<div class="container" style="text-align:center">
+    <table class="center" border="1">
+        <tr>
+            <th>User Name</th>
+            <th>TaskID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Due_Date</th>
+            <th>AssignedTo</th>
+
+            <th>Action</th>
+            </tr>
+            {% for result in page_obj %}
+            <tr>
+                <td>{{result.username}}</td>
+                <td>{{result.task_id}}</td>
+                <td>{{result.title}}</td>
+                <td>{{result.description}}</td>
+                <td>{{result.due_date}}</td>
+                <td>{{result.assigned_to}}</td>
+                <td>
+                    <button class="update-button" type="submit"><a href="{% url 'update' result.task_id %}"  class="btn btn-sm">Update</a></button>
+                    <form class="btn-class" action="{% url 'delete' result.task_id %}" method="POST" >{%csrf_token%}
+                        <input type="submit" class="btn btn-danger" value="Delete">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+</div>
+<div class="pagination">
+  {% if page_obj.has_previous %}
+    <a style="text-align:left" href="?page={{ page_obj.previous_page_number }}">previous</a>
+  {% endif %}
+  <span class="current-page">{{ page_obj.number }}</span>
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">next</a>
+  {% endif %}
+</div>
+
+                <p class="Tagline">Dream It Achieve It</p>
+</body>
+</html>

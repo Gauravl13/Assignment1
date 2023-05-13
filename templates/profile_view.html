@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../static/css/style1.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<head>
+    <meta charset="UTF-8">
+        <title>Display Data</title>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+
+<body style="background-color:khaki">
+
+<br/>
+<br/>
+<div style="text-align:center">
+    <h1>Employee List</h1>
+</div>
+
+     <div class="container" style="text-align:center">
+    <table class="center" border="1">
+        <tr>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Action</th>
+            </tr>
+            {% for result in data2 %}
+            <tr>
+                <td>{{result.username}}</td>
+                <td>{{result.email}}</td>
+                <td>{{result.first_name}}</td>
+                <td>{{result.last_name}}</td>
+                <td>
+                    <button class="update-button" type="submit"><a href="{% url 'profileupdate' result.username %}"  class="btn btn-warning">Update</a></button>
+                </td>
+
+            </tr>
+
+
+            {% endfor %}
+
+        </table>
+</div>
+    </center>
+</body>
+</html>
+
+
+
+
+
+
