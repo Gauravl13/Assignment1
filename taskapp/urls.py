@@ -19,6 +19,7 @@ from taskapp import views
 
 urlpatterns = [
         path('', views.index, name='index'),
+        path('searchtask/', views.search_task, name='searchtask'),
         path('login_view/', views.login_view, name='login_view'),
         path('register/', views.register, name='register'),
         path('add/', views.add_task, name='add'),

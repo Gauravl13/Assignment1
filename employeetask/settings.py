@@ -149,8 +149,8 @@ ELASTICSEARCH_INDEX = 'emptaskdetails'
 #     'django.contrib.auth.backends.ModelBackend',
 # ]
 
-AUTHENTICATION_BACKENDS = [
-    # 'taskapp.model.ElasticSearchBackend',
-    'django.contrib.auth.backends.ModelBackend',
-]
+# AUTHENTICATION_BACKENDS = [
+#     'taskapp.model.ElasticSearchBackend',
+#     'django.contrib.auth.backends.ModelBackend',
+# ]
 

@@ -59,10 +59,14 @@ style='text-align:right'
     </ul>
 
 
-    <form action="home" class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="{% url 'search' %}"></a>Search</button>
-    </form>
+    <form method="GET" action="{% url 'searchtask' %}">
+    <div class="input-group">
+        <input type="text" name="q" class="form-control" placeholder="Search...">
+        <span class="input-group-btn">
+            <button type="submit" class="btn btn-default">Search</button>
+        </span>
+    </div>
+</form>
   </div>
 </nav>
 <br/>
@@ -85,7 +89,7 @@ style='text-align:right'
 
             <th>Action</th>
             </tr>
-            {% for result in page_obj %}
+            {% for result in results %}
             <tr>
                 <td>{{result.username}}</td>
                 <td>{{result.task_id}}</td>
@@ -105,12 +109,12 @@ style='text-align:right'
         </table>
 </div>
 <div class="pagination">
-  {% if page_obj.has_previous %}
-    <a style="text-align:left" href="?page={{ page_obj.previous_page_number }}">previous</a>
+  {% if results.has_previous %}
+    <a style="text-align:left" href="?page={{ results.previous_page_number }}">previous</a>
   {% endif %}
-  <span class="current-page">{{ page_obj.number }}</span>
-  {% if page_obj.has_next %}
-    <a href="?page={{ page_obj.next_page_number }}">next</a>
+  <span class="current-page">{{ results.number }}</span>
+  {% if results.has_next %}
+    <a href="?page={{ results.next_page_number }}">next</a>
   {% endif %}
 </div>
 

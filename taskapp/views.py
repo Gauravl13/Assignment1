@@ -4,7 +4,6 @@ from django.contrib.auth import authenticate, login,logout
 from elasticsearch import Elasticsearch
 from .models import Employee
 from .form import EmployeeForm,Employee_DetailForm
-from rest_framework import viewsets
 from .serializer import Employeeserializer
 from django_elasticsearch_dsl.registries import registry
 from django.conf import settings
@@ -19,7 +18,6 @@ from django.core.paginator import Paginator
 def index(request):
     """Index Page"""
     return render(request, 'index.html')
-
 
 def register(request):
     """User Registration"""
@@ -95,7 +93,7 @@ def login_view(request):
                     tasks = [Employee(**hit['_source']) for hit in hits]
                     context = {'tasks': tasks}
                     return render(request, 'home1.html', context)
-                    return redirect('login_view')
+                    return redirect('home1')
 
 
             else:
@@ -111,7 +109,7 @@ def logout_view(request):
     return redirect('login_view')
 
 def home_profile(request):
-    """Function for to see Employee list"""
+    """Function for to view Employee list"""
     es = Elasticsearch('http://localhost:9200/')
     query = {
         "query": {
@@ -120,12 +118,12 @@ def home_profile(request):
     }
     search_data1 = es.search(index='userdetails', body=query)
     data2 = [hit['_source'] for hit in search_data1['hits']['hits']]
-    print(data2)
+    # print(data2)
     context = {'data2': data2}
     return render(request, 'profile_view.html', context)
 
 def home(request):
-    """Fuction for see employee task"""
+    """Function for view employee task"""
     es = Elasticsearch('http://localhost:9200/')
     query = {
         "query": {
@@ -135,12 +133,12 @@ def home(request):
     }
     search_data = es.search(index='emptaskdetails', body=query)
     data = [hit['_source'] for hit in search_data['hits']['hits']]
-    paginator = Paginator(data, 10)  # paginate by 10 items per page
+    paginator = Paginator(data, 3)  # paginate by 10 items per page
     page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    print(data)
+    results = paginator.get_page(page_number)
+    # print(data)
     # context = {'data': data}
-    return render(request, 'home.html',{'page_obj': page_obj})
+    return render(request, 'home.html',{'results': results})
 
 
 def add_task(r):
@@ -173,7 +171,7 @@ def add_task(r):
         form = EmployeeForm()
     return render(r, 'task.html', {'form': form})
 
-def search(request):
+def search_task(request):
     """Function for search task"""
     query = request.GET.get("q")
     if query:
@@ -181,7 +179,6 @@ def search(request):
         es = Elasticsearch(
             hosts=[{'host': settings.ELASTICSEARCH_HOST, 'port': settings.ELASTICSEARCH_PORT}]
         )
-
         # Search in Elasticsearch
         search_results = es.search(index=settings.ELASTICSEARCH_INDEX, body={
             "query": {
@@ -191,10 +188,39 @@ def search(request):
                 }
             }
         })
-        # print(search_results)
+        print(search_results)
 
         # Extract search results
         results = [hit['_source'] for hit in search_results['hits']['hits']]
+        print(results)
+    else:
+        results = []
+
+    context = {'results': results, 'query': query}
+    return render(request,'home.html', context)
+
+def search(request):
+    """Function for search task"""
+    query = request.GET.get("q")
+    if query:
+        # Connect to Elasticsearch
+        es = Elasticsearch(
+            hosts=[{'host': settings.ELASTICSEARCH_HOST, 'port': settings.ELASTICSEARCH_PORT}]
+        )
+        # Search in Elasticsearch
+        search_results = es.search(index=settings.ELASTICSEARCH_INDEX, body={
+            "query": {
+                "multi_match": {
+                    "query": query,
+                    "fields":['username','title','task_id.text']
+                }
+            }
+        })
+        print(search_results)
+
+        # Extract search results
+        results = [hit['_source'] for hit in search_results['hits']['hits']]
+        print(results)
     else:
         results = []
 
